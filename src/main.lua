@@ -1,7 +1,14 @@
 -----------------------------------------------------------------------------------------
 --
 -- main.lua
---
+-- Startup Code
 -----------------------------------------------------------------------------------------
 
--- Your code here
+-- Requires
+local composer = require "composer" 
+
+-- Initialize Code
+display.setStatusBar(display.HiddenStatusBar)
+
+-- Goto Scene
+composer.gotoScene("scn.menu")
