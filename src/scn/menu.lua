@@ -6,19 +6,13 @@
 
 -- Requires
 local composer = require "composer"
+local manager = require "scr.manager"
 
--- Initialize menuScene
+-- Initialize Scene
 local menuScene = composer.newScene()
-
--- Local Functions
-local function gotoScene(toScene)	-- Helper function to scene
-	-- print("change scene to: " .. toScene)
-	composer.gotoScene("scn." .. toScene)
-end
 
 -- Scene Functions
 function menuScene:create(event)	-- On create, before view
-
 	-- %TODO: Grab highscore
 
 end
@@ -59,7 +53,7 @@ function menuScene:show(event)
 			align = "center"
 		}
 		startButton = display.newText(options)
-		startButton:addEventListener("tap", function() gotoScene("game") end)
+		startButton:addEventListener("tap", function() manager.gotoScene("game") end)
 		
 		options = {
 			parent = frontGroup,
@@ -70,26 +64,13 @@ function menuScene:show(event)
 			align = "center"
 		}
 		optionsButton = display.newText(options)
-		optionsButton:addEventListener("tap", function() gotoScene("option") end)
+		optionsButton:addEventListener("tap", function() manager.gotoScene("option") end)
 		
 	end
 end
 
-function menuScene:hide(event)
-
-	local phase = event.phase
-	
-	if (phase == "will") then	-- Just before leave
-	
-	elseif (phase == "did") then	-- After leave
-
-	end
-end
-
--- menuScene Event Listeners
+-- Scene Event Listeners
 menuScene:addEventListener("create", menuScene)
 menuScene:addEventListener("show", menuScene)
-menuScene:addEventListener("hide", menuScene)
-menuScene:addEventListener("destroy", menuScene)
 
 return menuScene

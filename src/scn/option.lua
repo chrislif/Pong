@@ -6,21 +6,12 @@
 
 -- Requires
 local composer = require "composer"
+local manager = require "scr.manager"
 
 -- Initialize optionScene
 local optionScene = composer.newScene()
 
--- Local Functions
-local function gotoScene(toScene)	-- Helper function to scene
-	-- print("change scene to: " .. toScene)
-	composer.gotoScene("scn." .. toScene)
-end
-
 -- Scene Functions
-function optionScene:create(event)	-- On create, before view
-
-end
-
 function optionScene:show(event)
 
 	local phase = event.phase
@@ -56,23 +47,11 @@ function optionScene:show(event)
 			align = "center"
 		}
 		menuButton = display.newText(options)
-		menuButton:addEventListener("tap", function() gotoScene("menu") end)
+		menuButton:addEventListener("tap", function() manager.gotoScene("menu") end)
 	end
 end
 
-function optionScene:hide(event)
-	
-	local phase = event.phase
-	
-	if (phase == "will") then	-- Just before leave
-	
-	elseif (phase == "did") then	-- After leave
-	
-	end
-end
-
--- optionScene Event Listeners
+-- Scene Event Listeners
 optionScene:addEventListener("show", optionScene)
-optionScene:addEventListener("hide", optionScene)
 
 return optionScene

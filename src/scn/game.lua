@@ -6,21 +6,15 @@
 
 -- Requires
 local composer = require "composer"
+local physics = require "physics"
+local manager = require "scr.manager"
 
 -- Initialize gameScene
 local gameScene = composer.newScene()
-
--- Local Functions
-local function gotoScene(toScene)	-- Helper function to scene
-	-- print("change scene to: " .. toScene)
-	composer.gotoScene("scn." .. toScene)
-end
+physics.start()
+physics.setGravity(0, 0)
 
 -- Scene Functions
-function gameScene:create(event)	-- On create, before view
-
-end
-
 function gameScene:show(event)
 
 	local phase = event.phase
@@ -56,23 +50,11 @@ function gameScene:show(event)
 			align = "center"
 		}
 		toMenu = display.newText(options)
-		toMenu:addEventListener("tap", function() gotoScene("menu") end)
+		toMenu:addEventListener("tap", function() manager.gotoScene("menu") end)
 	end
 end
 
-function gameScene:hide(event)
-	
-	local phase = event.phase
-	
-	if (phase == "will") then	-- Just before leave
-	
-	elseif (phase == "did") then	-- After leave
-	
-	end
-end
-
--- gameScene Event Listeners
+-- Scene Event Listeners
 gameScene:addEventListener("show", gameScene)
-gameScene:addEventListener("hide", gameScene)
 
 return gameScene
