@@ -1,14 +1,14 @@
 -----------------------------------------------------------------------------------------
 --
--- game.lua
--- Game Code
+-- option.lua
+-- Options Code
 -----------------------------------------------------------------------------------------
 
 -- Requires
 local composer = require "composer"
 
--- Initialize gameScene
-local gameScene = composer.newScene()
+-- Initialize optionScene
+local optionScene = composer.newScene()
 
 -- Local Functions
 local function gotoScene(toScene)	-- Helper function to scene
@@ -17,11 +17,11 @@ local function gotoScene(toScene)	-- Helper function to scene
 end
 
 -- Scene Functions
-function gameScene:create(event)	-- On create, before view
+function optionScene:create(event)	-- On create, before view
 
 end
 
-function gameScene:show(event)
+function optionScene:show(event)
 
 	local phase = event.phase
 	local sceneGroup = self.view
@@ -41,13 +41,13 @@ function gameScene:show(event)
 			parent = frontGroup,
 			x = display.contentWidth/2,
 			y = 32,
-			text = "Game",
+			text = "Options",
 			fontSize = 15,
 			align = "center"
 		}
 		titleText = display.newText(options)
 		
-		local options = {
+		options = {
 			parent = frontGroup,
 			x = display.contentWidth/2,
 			y = display.contentHeight - 32,
@@ -55,12 +55,12 @@ function gameScene:show(event)
 			fontSize = 15,
 			align = "center"
 		}
-		toMenu = display.newText(options)
-		toMenu:addEventListener("tap", function() gotoScene("menu") end)
+		menuButton = display.newText(options)
+		menuButton:addEventListener("tap", function() gotoScene("menu") end)
 	end
 end
 
-function gameScene:hide(event)
+function optionScene:hide(event)
 	
 	local phase = event.phase
 	
@@ -71,8 +71,8 @@ function gameScene:hide(event)
 	end
 end
 
--- gameScene Event Listeners
-gameScene:addEventListener("show", gameScene)
-gameScene:addEventListener("hide", gameScene)
+-- optionScene Event Listeners
+optionScene:addEventListener("show", optionScene)
+optionScene:addEventListener("hide", optionScene)
 
-return gameScene
+return optionScene

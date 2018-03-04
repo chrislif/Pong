@@ -7,8 +7,10 @@
 -- Requires
 local composer = require "composer" 
 
--- Initialize Code
+-- Initialization Code
 display.setStatusBar(display.HiddenStatusBar)
+composer.recycleOnSceneChange = true 
+composer.isDebug = true
 
 -- Goto Scene
 composer.gotoScene("scn.menu")
