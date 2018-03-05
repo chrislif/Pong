@@ -1,13 +1,14 @@
 -----------------------------------------------------------------------------------------
 --
 -- game.lua
--- Game Code
+-- Game Scene Code
 -----------------------------------------------------------------------------------------
 
 -- Requires
 local composer = require "composer"
 local physics = require "physics"
 local manager = require "scr.manager"
+local graphics = require "scr.graphics"
 
 -- Initialize gameScene
 local gameScene = composer.newScene()
@@ -30,28 +31,44 @@ function gameScene:show(event)
 		sceneGroup:insert(frontGroup)
 		
 	elseif (phase == "did") then	-- On view
-
-		local options = {
-			parent = frontGroup,
-			x = display.contentWidth/2,
-			y = 32,
-			text = "Game",
-			fontSize = 15,
-			align = "center"
-		}
-		titleText = display.newText(options)
 		
-		local options = {
-			parent = frontGroup,
-			x = display.contentWidth/2,
-			y = display.contentHeight - 32,
-			text = "to Menu",
-			fontSize = 15,
-			align = "center"
-		}
-		toMenu = display.newText(options)
+		-- Menu Text Button
+		toMenu = graphics.drawText(display.contentWidth - 96, 16, "to Menu")
 		toMenu:addEventListener("tap", function() manager.gotoScene("menu") end)
+		
+		-- Load objects
+		ball = graphics.loadBall()
+		player = graphics.loadPlayer()
+		enemy = graphics.loadEnemy()
+		
+		-- Load boundaries
+		leftBound = graphics.loadLeftBound()
+		rightBound = graphics.loadRightBound()
+		
+		-- Organize objects into groups
+		frontGroup:insert(ball)
+		frontGroup:insert(toMenu)
+		frontGroup:insert(player)
+		frontGroup:insert(enemy)
+		frontGroup:insert(leftBound)
+		frontGroup:insert(rightBound)
+		
+		-- Add Physics
+		physics.addBody(ball, "dynamic", {friction = 0})
+		physics.addBody(player, "static", {bounce = 1.2})
+		physics.addBody(enemy, "static", {bounce = 1.2})
+		physics.addBody(leftBound, "static", {bounce = 1})
+		physics.addBody(rightBound, "static", {bounce = 1})
+		
+		-- Wait for player to start game
+		Runtime:addEventListener("tap", gameScene.startGame)
 	end
+end
+
+function gameScene:startGame(event)
+	print(ball)
+	ball:setLinearVelocity(0, 200)
+	Runtime:removeEventListener("tap", gameScene.startGame)
 end
 
 -- Scene Event Listeners

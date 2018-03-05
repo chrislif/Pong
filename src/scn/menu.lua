@@ -1,12 +1,13 @@
 -----------------------------------------------------------------------------------------
 --
 -- menu.lua
--- Main Menu Code
------------------------------------------------------------------------------------------
+-- Menu Scene Code
+--------------------------------------------------------------------------------------
 
 -- Requires
 local composer = require "composer"
 local manager = require "scr.manager"
+local graphics = require "scr.graphics"
 
 -- Initialize Scene
 local menuScene = composer.newScene()
@@ -28,43 +29,27 @@ function menuScene:show(event)
 		backGroup = display.newGroup()
 		frontGroup = display.newGroup()
 		
+		-- Put display groups into scene
 		sceneGroup:insert(backGroup)
 		sceneGroup:insert(frontGroup)
 		
 	elseif (phase == "did") then	-- On view
 		
-		-- %TODO: Draw Menu Buttons
-		local options = {
-			parent = frontGroup,
-			x = display.contentWidth/2,
-			y = 32,
-			text = "PONG by Tsundraki",
-			fontSize = 15,
-			align = "center"
-		}
-		titleText = display.newText(options)
+		-- Title
+		titleText = graphics.drawText(display.contentWidth/2, 32, "PONG by Tsundraki")
 		
-		options = {
-			parent = frontGroup,
-			x = display.contentWidth/2,
-			y = display.contentHeight/2 - 32,
-			text = "Start Game",
-			fontSize = 15,
-			align = "center"
-		}
-		startButton = display.newText(options)
+		-- Start Text Button
+		startButton = graphics.drawText(display.contentWidth/2, display.contentHeight/2 - 32, "Start Game")
 		startButton:addEventListener("tap", function() manager.gotoScene("game") end)
 		
-		options = {
-			parent = frontGroup,
-			x = display.contentWidth/2,
-			y = display.contentHeight/2,
-			text = "Options",
-			fontSize = 15,
-			align = "center"
-		}
-		optionsButton = display.newText(options)
+		-- Options Text Button
+		optionsButton = graphics.drawText(display.contentWidth/2, display.contentHeight/2, "Options")
 		optionsButton:addEventListener("tap", function() manager.gotoScene("option") end)
+		
+		-- Organize into groups
+		frontGroup:insert(optionsButton)
+		frontGroup:insert(startButton)
+		frontGroup:insert(titleText)
 		
 	end
 end

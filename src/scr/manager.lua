@@ -10,7 +10,8 @@ local composer = require "composer"
 -- Initialize function table
 local manager = {}
 
-function manager.gotoScene(toScene)	-- Helper function toScene
+-- Functions
+function manager.gotoScene(toScene)	-- Helper function for toScene
 	print("change scene to: " .. toScene)
 	composer.gotoScene("scn." .. toScene)
 end
