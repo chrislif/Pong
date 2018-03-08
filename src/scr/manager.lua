@@ -16,4 +16,21 @@ function manager.gotoScene(toScene)	-- Helper function for toScene
 	composer.gotoScene("scn." .. toScene)
 end
 
+function manager.dragPaddle(event)
+	local paddle = event.target
+	local phase = event.phase
+	
+	if ("began" == phase) then
+		-- Set focus
+		display.currentStage:setFocus(paddle)
+		-- Store initial offset
+		paddle.touchOffsetX = event.x - paddle.x
+	elseif ("moved" == phase) then
+		-- Move to new position
+		paddle.x = event.x - paddle.touchOffsetX
+	end
+	
+	return true
+end
+
 return manager

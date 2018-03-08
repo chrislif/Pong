@@ -6,9 +6,9 @@
 local graphics = {}
 
 function graphics.loadBall()	-- Loads Ball at center
-	return display.newRect(display.contentWidth/2, 
+	return display.newCircle(display.contentWidth/2, 
 						   display.contentHeight/2,
-						   10, 10)	   
+						   5)	   
 end
 
 function graphics.loadEnemy()	-- Loads Enemy Paddle

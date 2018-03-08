@@ -16,7 +16,7 @@ physics.start()
 physics.setGravity(0, 0)
 
 -- Scene Functions
-function gameScene:show(event)
+function gameScene:show(event)	-- Before scene creation
 
 	local phase = event.phase
 	local sceneGroup = self.view
@@ -55,7 +55,7 @@ function gameScene:show(event)
 		
 		-- Add Physics
 		physics.addBody(ball, "dynamic", {friction = 0})
-		physics.addBody(player, "static", {bounce = 1.2})
+		physics.addBody(player, "static", {bounce = 1})
 		physics.addBody(enemy, "static", {bounce = 1.2})
 		physics.addBody(leftBound, "static", {bounce = 1})
 		physics.addBody(rightBound, "static", {bounce = 1})
@@ -65,10 +65,17 @@ function gameScene:show(event)
 	end
 end
 
-function gameScene:startGame(event)
-	print(ball)
+function gameScene:startGame(event)	-- Start the game
 	ball:setLinearVelocity(0, 200)
 	Runtime:removeEventListener("tap", gameScene.startGame)
+	player:addEventListener("touch", manager.dragPaddle)
+
+	gameLoopTimer = timer.performWithDelay(500, gameLoop, 0)
+end
+
+
+function gameLoop(event)
+	manager.moveEnemy(event)
 end
 
 -- Scene Event Listeners
