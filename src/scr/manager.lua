@@ -33,4 +33,8 @@ function manager.dragPaddle(event)
 	return true
 end
 
+function manager.moveEnemy(event)
+
+end
+
 return manager
