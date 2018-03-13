@@ -35,13 +35,13 @@ function graphics.drawText(x, y, text)	-- Draws any text
 end
 
 function graphics.loadLeftBound()
-	return display.newRect(30,
+	return display.newRect(25,
 						   display.contentHeight/2,
 						   1, display.contentHeight)
 end
 
 function graphics.loadRightBound()
-	return display.newRect(display.contentWidth - 30,
+	return display.newRect(display.contentWidth - 25,
 						   display.contentHeight/2,
 						   1, display.contentHeight)
 end

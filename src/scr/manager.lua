@@ -27,7 +27,12 @@ function manager.dragPaddle(event)
 		paddle.touchOffsetX = event.x - paddle.x
 	elseif ("moved" == phase) then
 		-- Move to new position
-		paddle.x = event.x - paddle.touchOffsetX
+		print(paddle.x)
+		moveX = event.x - paddle.touchOffsetX
+		
+		if (moveX > 50) and (moveX < 270) then
+			paddle.x = event.x - paddle.touchOffsetX
+		end
 	end
 	
 	return true

@@ -70,7 +70,6 @@ function gameScene:startGame(event)	-- Start the game
 	Runtime:removeEventListener("tap", gameScene.startGame)
 	player:addEventListener("touch", manager.dragPaddle)
   
-
 	gameLoopTimer = timer.performWithDelay(500, gameLoop, 0)
 end
 
