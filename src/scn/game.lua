@@ -6,14 +6,12 @@
 
 -- Requires
 local composer = require "composer"
-local physics = require "physics"
+local physics = require "scr.physics"
 local manager = require "scr.manager"
 local graphics = require "scr.graphics"
 
 -- Initialize gameScene
 local gameScene = composer.newScene()
-physics.start()
-physics.setGravity(0, 0)
 
 -- Scene Functions
 function gameScene:show(event)	-- Before scene creation
@@ -41,6 +39,11 @@ function gameScene:show(event)	-- Before scene creation
 		player = graphics.loadPlayer()
 		enemy = graphics.loadEnemy()
 		
+		-- Assign Id
+		player.id = 1
+		ball.id = 0
+		enemy.id = 2
+		
 		-- Load boundaries
 		leftBound = graphics.loadLeftBound()
 		rightBound = graphics.loadRightBound()
@@ -53,12 +56,10 @@ function gameScene:show(event)	-- Before scene creation
 		frontGroup:insert(leftBound)
 		frontGroup:insert(rightBound)
 		
-		-- Add Physics
-		physics.addBody(ball, "dynamic", {friction = 0})
-		physics.addBody(player, "static", {bounce = 1})
-		physics.addBody(enemy, "static", {bounce = 1.2})
-		physics.addBody(leftBound, "static", {bounce = 1})
-		physics.addBody(rightBound, "static", {bounce = 1})
+		-- Add to physics
+		physics.addBody(player)
+		physics.addBody(ball)
+		physics.addBody(enemy)
 		
 		-- Wait for player to start game
 		Runtime:addEventListener("tap", gameScene.startGame)
@@ -66,16 +67,16 @@ function gameScene:show(event)	-- Before scene creation
 end
 
 function gameScene:startGame(event)	-- Start the game
-	ball:setLinearVelocity(0, 200)
+	physics.run()
+	physics.setVelocity(ball)
 	Runtime:removeEventListener("tap", gameScene.startGame)
 	player:addEventListener("touch", manager.dragPaddle)
   
-	gameLoopTimer = timer.performWithDelay(500, gameLoop, 0)
+	gameLoopTimer = timer.performWithDelay(1, gameLoop, 0)
 end
 
-
 function gameLoop(event)
-	manager.moveEnemy(event)
+	manager.moveEnemy(enemy, ball)
 end
 
 -- Scene Event Listeners
