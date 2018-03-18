@@ -68,7 +68,7 @@ end
 
 function gameScene:startGame(event)	-- Start the game
 	physics.run()
-	physics.setVelocity(ball)
+	physics.setVector(ball, 0, 0)
 	Runtime:removeEventListener("tap", gameScene.startGame)
 	player:addEventListener("touch", manager.dragPaddle)
   
